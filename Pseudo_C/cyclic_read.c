@@ -14,19 +14,18 @@ int main()
 		return sfd;
 	}
 
-	struct buffer* shared = mmap(NULL, sizeof(struct buffer), PROT_READ, MAP_SHARED, sfd, 0);
+	struct buffer_t* shared = mmap(NULL, sizeof(struct buffer_t), PROT_READ, MAP_SHARED, sfd, 0);
 	if(shared == NULL)
 	{
 		perror("shared");
 		return -1;
 	}
-	sleep(5);
-
-	while(1)
+	sleep(6);
+	
+	for(int i=0; i<4; i++)
 	{
-		if(shared->first != shared->last) return 0;
+		printf("%d\n",shared->data[i]);
 	}
-
 	close(sfd);
 	return 0;
 }

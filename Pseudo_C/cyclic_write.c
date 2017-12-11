@@ -11,37 +11,34 @@
 
 int main()
 {
-	int sfd = shm_open("test", O_CREAT | O_WRONLY, S_IRWXU);
+	int sfd = shm_open("test", O_CREAT | O_RDWR, S_IRWXU);
 	if(sfd < 0)
 	{
 		perror("sfd");
 		return sfd;
 	}
-	int res = ftruncate(sfd, 4096);
+	int res = ftruncate(sfd, SIZE_N);
 	if(res < 0)
 	{
 		perror("ftruncate:");
 		return -1;
 	}
 
-	struct buffer* shared = mmap(NULL, 4096, PROT_WRITE, MAP_SHARED, sfd, 0);
+	struct buffer_t* shared = mmap(NULL, sizeof(struct buffer_t), PROT_READ | PROT_WRITE, MAP_SHARED, sfd, 0);
 
-	bool flip = true;
-	while(1)
+	if(shared == -1)
 	{
-		if(flip)
-		{
-			shared -> first = 1;
-			shared -> last = 1;
-		}
-		else
-		{
-			shared -> first = 0;
-			shared -> last = 0;
-		}
-		flip = !flip;
+		return 1;
 	}
-		
+
+	shared->pos = 0;
+	for(int i=0; i<4; i++)
+	{
+		if(shared->pos == SIZE_N-1) shared->pos = 0; 
+		shared->data[shared->pos] = i;
+		shared->pos++;
+	}	
+
 	close(sfd);
 	return 0;
 }

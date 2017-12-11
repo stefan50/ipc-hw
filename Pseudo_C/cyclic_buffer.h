@@ -1,10 +1,14 @@
 #ifndef CYCLIC_BUFFER_H
 #define CYCLIC_BUFFER_H
 
-struct buffer
+#include <stdint.h>
+
+#define SIZE 4096
+
+struct buffer_t
 {
-	volatile int first;
-	volatile int last; 
+	volatile uint64_t data[SIZE];
+	volatile uint64_t pos;
 };
 
 #endif
