@@ -31,14 +31,15 @@ int main()
 		return 1;
 	}
 
-	shared->pos = 0;
+	shared->pos %= 4096;
 	for(int i=0; i<4098; i++)
-	{
-		if(shared->pos == SIZE_N-1) shared->pos = 0; 
+	{ 
 		shared->data[shared->pos] = i;
 		shared->pos++;
+		shared->pos%=4096;
 	}	
 
+	munmap(shared, sizeof(struct buffer_t));
 	close(sfd);
 	return 0;
 }
