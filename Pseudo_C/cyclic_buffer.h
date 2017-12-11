@@ -10,5 +10,4 @@ struct buffer_t
 	volatile uint64_t data[SIZE];
 	volatile uint64_t pos;
 };
-
 #endif

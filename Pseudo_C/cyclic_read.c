@@ -20,11 +20,10 @@ int main()
 		perror("shared");
 		return -1;
 	}
-	sleep(6);
-	
-	for(int i=0; i<4; i++)
+	sleep(6); //6 secs to write
+	for(int i = 0; i < 4095; i++)
 	{
-		printf("%d\n",shared->data[i]);
+		printf("%d\n", shared->data[i]);
 	}
 	close(sfd);
 	return 0;

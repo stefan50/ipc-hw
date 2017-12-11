@@ -17,7 +17,7 @@ int main()
 		perror("sfd");
 		return sfd;
 	}
-	int res = ftruncate(sfd, SIZE_N);
+	int res = ftruncate(sfd, sizeof(struct buffer_t));
 	if(res < 0)
 	{
 		perror("ftruncate:");
@@ -32,7 +32,7 @@ int main()
 	}
 
 	shared->pos = 0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<4098; i++)
 	{
 		if(shared->pos == SIZE_N-1) shared->pos = 0; 
 		shared->data[shared->pos] = i;
