@@ -21,7 +21,7 @@ int main()
 		return -1;
 	}
 	//sleep(6); //6 secs to write
-	uint64_t pos = (shared->pos+1)%4096;
+	uint64_t pos = (shared->pos)%4096;
 	while(1)
 	{
 		if(shared->pos == pos)

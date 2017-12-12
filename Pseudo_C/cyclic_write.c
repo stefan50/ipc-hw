@@ -32,7 +32,7 @@ int main()
 	}
 
 	shared->pos %= 4096;
-	for(int i=0; i<4098; i++)
+	for(int i=0; i<1; i++)
 	{ 
 		shared->data[shared->pos] = i;
 		shared->pos++;
